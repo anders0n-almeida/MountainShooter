@@ -1,0 +1,1 @@
+# Arquivo que garante que o diretório 'game_code' se trata de um Python Package e, portanto, os arquivos que estão contidos dentro dessa pasta podem ser facilmente importados para outras partes do código

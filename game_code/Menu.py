@@ -1,0 +1,44 @@
+# Importações gerais
+import pygame
+
+class Menu:
+
+    # CONSTRUTOR
+    # A janela enviada como argumento para o parâmetro 'window' precisa ser do tipo 'Surface', importado do pygame
+    def __init__(self, window: pygame.surface.Surface):
+        self.window = window
+
+        # carregando a imagem do menu
+        self.surface_img_place = pygame.image.load('./assets/backgrounds/MenuBg.png')
+
+        # criando um retângulo invisível (posteriormente, a imagem carregada será inserida dentro desse retângulo)
+        self.rect = self.surface_img_place.get_rect(left = 0, top = 0)
+
+    # MÉTODO RODAR/RUN
+    def run(self):
+        
+        # Carregar a música para o menu
+        pygame.mixer_music.load('./assets/sounds/soundtrack/Menu.mp3')
+        
+        # Tocando a música carregada indefinidamente (argumento -1)
+        pygame.mixer_music.play(-1)
+
+        while True:
+            # desenhando a imagem carregada (self.surface_img_place) no retângulo invisível 'self.rect'
+            self.window.blit(source = self.surface_img_place, dest = self.rect)
+
+            # atualizando a tela para apresentar a imagem
+            pygame.display.flip()
+
+            # Capturando todos os EVENTOS do projeto
+            for event in pygame.event.get():
+
+                # Tratando o evento de clicar no botão para fechar a janela do jogo
+                if (event.type == pygame.QUIT):
+                    pygame.quit()   # Fecha a janela
+                    quit()          # Encerra o pygame
+
+    # MÉTODO PARA APRESENTAÇÃO DE TEXTOS NO MENU
+    def menu_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):
+
+        ...
