@@ -19,6 +19,9 @@ class Menu:
 
     # MÉTODO RODAR/RUN
     def run(self):
+
+        # Opção inicial de seleção do menu
+        curr_menu_option = 0
         
         # Carregar a música para o menu
         pygame.mixer_music.load('./assets/sounds/soundtrack/Menu.mp3')
@@ -38,11 +41,11 @@ class Menu:
             self.menu_text(50, "Shooter", COLOR_ORANGE, ((WIN_WIDTH / 2), 120))
 
             # MENU
-            curr_y_pos = 180
-            for option in MENU_OPTIONS:
-
-                self.menu_text(15, option, COLOR_WHITE, ((WIN_WIDTH / 2), curr_y_pos))
-                curr_y_pos += 30
+            for i in range(0, len(MENU_OPTIONS), 1):
+                if i == curr_menu_option:
+                    self.menu_text(15, MENU_OPTIONS[i], COLOR_GREEN, ((WIN_WIDTH / 2), 180 + (30) * i))
+                else:
+                    self.menu_text(15, MENU_OPTIONS[i], COLOR_WHITE, ((WIN_WIDTH / 2), 180 + (30) * i))
 
             # atualizando a tela para apresentar a imagem
             pygame.display.flip()
@@ -54,6 +57,25 @@ class Menu:
                 if (event.type == pygame.QUIT):
                     pygame.quit()   # Fecha a janela
                     quit()          # Encerra o pygame
+
+                # Tratando o evento de pressionar teclas no MENU
+                if (event.type == pygame.KEYDOWN):
+                    # Seta para baixo
+                    if event.key == pygame.K_DOWN:
+
+                        if (curr_menu_option < (len(MENU_OPTIONS) - 1)):
+                            curr_menu_option += 1
+
+                    # Seta para cima
+                    elif event.key == pygame.K_UP:
+
+                        if (curr_menu_option > 0):
+                            curr_menu_option -= 1
+
+                    # Tecla ENTER ou BARRA DE ESPAÇO
+                    elif (event.key == pygame.K_RETURN) or (event.key == pygame.K_SPACE):
+
+                        return MENU_OPTIONS[curr_menu_option]; 
 
     # MÉTODO PARA APRESENTAÇÃO DE TEXTOS NO MENU (os textos são tratados como IMAGEM)
     def menu_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
