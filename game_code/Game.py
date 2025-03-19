@@ -33,6 +33,9 @@ class Game:
                     level = Level(self.window, 'Level 01', menu_response)
                     level_response = level.run()
 
+                    if level_response == "menu":
+                        continue  # Volta ao menu
+
                 case 'SCORE':
                     ...
 

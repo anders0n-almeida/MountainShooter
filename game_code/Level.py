@@ -15,6 +15,7 @@ class Level:
         self.game_mode = game_mode
         self.entity_list: list[Entity] = []
         self.timeout = 120000 # 120 segundos ou 2 minuntos
+        self.paused = False  # Flag para indicar se o jogo está pausado
 
         self.entity_list.extend(EntityFactory.build_entity('Level1Bg'))
         self.entity_list.append(EntityFactory.build_entity('Player1'))
@@ -40,16 +41,22 @@ class Level:
                 # FPS
                 clock.tick(60)
 
-                for entity in self.entity_list:
-                    self.window.blit(source = entity.surf, dest = entity.rect)
-                    entity.move()
+                # Atualização das entidades caso o jogo NÃO ESTEJA PAUSADO
+                if not self.paused:
+                    for entity in self.entity_list:
+                        self.window.blit(source=entity.surf, dest=entity.rect)
+                        entity.move()
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
                         quit()
 
-                    if event.type == EVENT_ENEMY:
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_ESCAPE:
+                            self.toggle_pause()
+
+                    if (event.type == EVENT_ENEMY) and (not self.paused):
                         enemy_choice = random.choice(('Enemy1', 'Enemy2'))
                         self.entity_list.append(EntityFactory.build_entity(enemy_choice))
 
@@ -57,4 +64,41 @@ class Level:
                 generate_text(self.window, 14, f"FPS: {clock.get_fps():.0f}", COLOR_WHITE, (10, WIN_HEIGHT - 35), "level")
                 generate_text(self.window, 14, f"ENTIDADES: {len(self.entity_list)}", COLOR_WHITE, (10, WIN_HEIGHT - 20), "level")
 
+                if self.paused:
+                    response = self.draw_pause_screen()
+                    if response == "menu":
+                        return "menu"  # Sai completamente do loop do jogo e volta ao menu
+
                 pygame.display.flip()
+
+    def toggle_pause(self):
+        """Ativa ou desativa a pausa do jogo"""
+        self.paused = not self.paused
+
+        if self.paused:
+            pygame.mixer_music.pause()
+        else:
+            pygame.mixer_music.unpause()
+
+    def draw_pause_screen(self):
+        """Desenha a tela de pausa"""
+        overlay = pygame.Surface((WIN_WIDTH, WIN_HEIGHT))
+        overlay.set_alpha(150)  # Transparência
+        overlay.fill((0, 0, 0))
+        self.window.blit(overlay, (0, 0))
+
+        generate_text(self.window, 30, "JOGO PAUSADO", COLOR_WHITE, ((WIN_WIDTH / 2), WIN_HEIGHT / 3), "pause")
+        generate_text(self.window, 20, "Pressione ESC para continuar ou ENTER para sair", COLOR_WHITE, ((WIN_WIDTH / 2), WIN_HEIGHT / 2), "pause")
+
+        pygame.display.flip()
+
+        while self.paused:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        pygame.quit()
+                        quit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        self.toggle_pause()
+                    elif event.key == pygame.K_RETURN:
+                        return "menu"

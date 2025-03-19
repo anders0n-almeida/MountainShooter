@@ -62,13 +62,13 @@ class Menu:
                 # Tratando o evento de pressionar teclas no MENU
                 if (event.type == pygame.KEYDOWN):
                     # Seta para baixo
-                    if event.key == pygame.K_DOWN:
+                    if (event.key == pygame.K_DOWN) or (event.key == pygame.K_s):
 
                         if (curr_menu_option < (len(MENU_OPTIONS) - 1)):
                             curr_menu_option += 1
 
                     # Seta para cima
-                    elif event.key == pygame.K_UP:
+                    elif (event.key == pygame.K_UP) or (event.key == pygame.K_w):
 
                         if (curr_menu_option > 0):
                             curr_menu_option -= 1
