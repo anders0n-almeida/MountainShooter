@@ -1,12 +1,16 @@
-from game_code.Background import Background
+from random import randint
+
 from game_code.Consts import *
+from game_code.Background import Background
+from game_code.Enemy import Enemy
+from game_code.Player import Player
 
 class EntityFactory:
 
     # NOTA: Factories não possuem construtor (método __init__ [dunder init])
 
     @staticmethod
-    def get_entity(entity_name: str, position: tuple = (0, 0)):
+    def build_entity(entity_name: str, position: tuple = (0, 0)):
         
         match entity_name:
 
@@ -21,3 +25,16 @@ class EntityFactory:
                     list_bg.append(Background(curr_level_name, 'backgrounds', (WIN_WIDTH, 0)))
 
                 return list_bg
+            
+            case 'Player1':
+                return Player('Player1', 'characters', (10, (WIN_HEIGHT / 2) - 30))
+            
+            case 'Player2':
+                return Player('Player2', 'characters', (10, (WIN_HEIGHT / 2) + 30))
+            
+            # Fabricando os inimigos 1 e 2 após a largura máxima da tela, para que eles venham de fora para dentro, e considerando uma altura aleatória utilizando a função 'randint()' da biblioteca 'random'
+            case 'Enemy1':
+                return Enemy('Enemy1', 'characters', (WIN_WIDTH + 10, randint(10, WIN_HEIGHT - 25)))
+            
+            case 'Enemy2':
+                return Enemy('Enemy2', 'characters', (WIN_WIDTH + 10, randint(10, WIN_HEIGHT - 25)))

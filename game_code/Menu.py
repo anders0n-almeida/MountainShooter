@@ -3,6 +3,7 @@ import pygame
 
 # Importações do Python Package 'game_code' (MÓDULOS INTERNOS)
 from game_code.Consts import *
+from game_code.Helpers import generate_text
 
 class Menu:
 
@@ -12,7 +13,7 @@ class Menu:
         self.window = window
 
         # carregando a imagem do menu
-        self.surface_img_place = pygame.image.load('./assets/backgrounds/MenuBg.png')
+        self.surface_img_place = pygame.image.load('./assets/backgrounds/MenuBg.png').convert_alpha()
 
         # criando um retângulo invisível (posteriormente, a imagem carregada será inserida dentro desse retângulo)
         self.rect = self.surface_img_place.get_rect(left = 0, top = 0)
@@ -37,15 +38,15 @@ class Menu:
             # desenhando os textos do menu (são tratados como imagem) [CORES DEFINIDAS NO ARQUIVO 'Conts.py']
             # [NOTA]: A ordem IMPORTA! Se você desenhar a imagem depois de escrever o texto, a imagem irá sobrepor o texto
             # TÍTULO
-            self.menu_text(50, "Mountain", COLOR_ORANGE, ((WIN_WIDTH / 2), 70))
-            self.menu_text(50, "Shooter", COLOR_ORANGE, ((WIN_WIDTH / 2), 120))
+            generate_text(self.window, 50, "Mountain", COLOR_ORANGE, ((WIN_WIDTH / 2), 70), "menu")
+            generate_text(self.window, 50, "Shooter", COLOR_ORANGE, ((WIN_WIDTH / 2), 120), "menu")
 
             # MENU
             for i in range(0, len(MENU_OPTIONS), 1):
                 if i == curr_menu_option:
-                    self.menu_text(15, MENU_OPTIONS[i], COLOR_GREEN, ((WIN_WIDTH / 2), 180 + (30) * i))
+                    generate_text(self.window, 15, MENU_OPTIONS[i], COLOR_GREEN, ((WIN_WIDTH / 2), 180 + (30) * i), "menu")
                 else:
-                    self.menu_text(15, MENU_OPTIONS[i], COLOR_WHITE, ((WIN_WIDTH / 2), 180 + (30) * i))
+                    generate_text(self.window, 15, MENU_OPTIONS[i], COLOR_WHITE, ((WIN_WIDTH / 2), 180 + (30) * i), "menu")
 
             # atualizando a tela para apresentar a imagem
             pygame.display.flip()
@@ -75,12 +76,4 @@ class Menu:
                     # Tecla ENTER ou BARRA DE ESPAÇO
                     elif (event.key == pygame.K_RETURN) or (event.key == pygame.K_SPACE):
 
-                        return MENU_OPTIONS[curr_menu_option]; 
-
-    # MÉTODO PARA APRESENTAÇÃO DE TEXTOS NO MENU (os textos são tratados como IMAGEM)
-    def menu_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):
-
-        text_font: pygame.font.Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
-        text_surf: pygame.Surface = text_font.render(text, True, text_color).convert_alpha()
-        text_rect: pygame.Rect = text_surf.get_rect(center=text_center_pos)
-        self.window.blit(source=text_surf, dest=text_rect)
+                        return MENU_OPTIONS[curr_menu_option]
