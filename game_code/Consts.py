@@ -32,9 +32,46 @@ PLAYER_KEY_RIGHT = {
     'Player2': pygame.K_KP_6
 }
 
-PLAYER_KEY_SHOOT = {
+PLAYER_KEY_SHOT = {
     'Player1': pygame.K_SPACE,
     'Player2': pygame.K_KP_ENTER
+}
+
+# ENTIDADES
+ENTITY_SPEED = {
+    'Level1Bg0': 0,
+    'Level1Bg1': 1,
+    'Level1Bg2': 2,
+    'Level1Bg3': 3,
+    'Level1Bg4': 4,
+    'Level1Bg5': 5,
+    'Level1Bg6': 6,
+    'Player1': 3,
+    'Player1Shot': 5,
+    'Player2': 3,
+    'Player2Shot': 5,
+    'Enemy1': 2,
+    'Enemy1Shot': 5,
+    'Enemy2': 1,
+    'Enemy2Shot': 3
+}
+
+ENTITY_HEALTH = {
+    'Player1': 300,
+    'Player1Shot': 1,
+    'Player2': 300,
+    'Player2Shot': 1,
+    'Enemy1': 40,
+    'Enemy1Shot': 1,
+    'Enemy2': 60,
+    'Enemy2Shot': 1
+}
+
+ENTITY_SHOT_DELAY = {
+    'Player1': 20,
+    'Player2': 20,
+    'Enemy1': 100,
+    'Enemy2': 175,
 }
 
 # EVENTOS
@@ -48,17 +85,3 @@ MENU_OPTIONS = [
     'SCORE',
     'EXIT'
 ]
-
-ENTITY_SPEED = {
-    'Level1Bg0': 0,
-    'Level1Bg1': 1,
-    'Level1Bg2': 2,
-    'Level1Bg3': 3,
-    'Level1Bg4': 4,
-    'Level1Bg5': 5,
-    'Level1Bg6': 6,
-    'Player1': 3,
-    'Player2': 3,
-    'Enemy1': 2,
-    'Enemy2': 1
-}

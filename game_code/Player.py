@@ -1,13 +1,15 @@
 import pygame
 
-from game_code.Entity import Entity
 from game_code.Consts import *
+from game_code.Entity import Entity
+from game_code.PlayerShot import PlayerShot
 
 class Player(Entity):
 
     def __init__(self, name: str, entity_type: str, position: tuple):
 
         super().__init__(name, entity_type, position)
+        self.shot_delay = ENTITY_SHOT_DELAY[self.name]
 
     def move(self):
         
@@ -37,3 +39,17 @@ class Player(Entity):
         # TECLA D
         if pressed_key[PLAYER_KEY_RIGHT[self.name]] and self.rect.right < WIN_WIDTH:
             self.rect.centerx += ENTITY_SPEED[self.name]
+
+    def shoot(self) -> PlayerShot:
+
+        self.shot_delay -= 1
+
+        if self.shot_delay == 0:
+
+            # Renovando o atraso/delay do tiro para o valor inicial
+            self.shot_delay = ENTITY_SHOT_DELAY[self.name]
+
+            pressed_key = pygame.key.get_pressed()
+            if pressed_key[PLAYER_KEY_SHOT[self.name]]:
+
+                return PlayerShot(f'{self.name}Shot', 'particles', (self.rect.centerx, self.rect.centery))

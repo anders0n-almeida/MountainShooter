@@ -4,7 +4,10 @@ import random
 from game_code.Consts import *
 from game_code.Entity import Entity
 from game_code.EntityFactory import EntityFactory
-from game_code.Helpers import generate_text
+from game_code.EntityMediator import EntityMediator
+from game_code.Player import Player
+from game_code.Enemy import Enemy
+from game_code.Helpers import generate_debug_text, generate_text
 
 class Level:
 
@@ -47,6 +50,15 @@ class Level:
                         self.window.blit(source=entity.surf, dest=entity.rect)
                         entity.move()
 
+                        if isinstance(entity, (Player, Enemy)):
+                            ent_shot = entity.shoot()
+                            if ent_shot is not None:
+                                self.entity_list.append(ent_shot)
+
+                        # # Gerando um texto abaixo do inimigo
+                        # if isinstance(entity, Enemy):
+                        #     generate_debug_text(self.window, entity, f"{entity.rect.right}", position="below")
+
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         pygame.quit()
@@ -59,8 +71,11 @@ class Level:
                     if (event.type == EVENT_ENEMY) and (not self.paused):
                         enemy_choice = random.choice(('Enemy1', 'Enemy2'))
                         self.entity_list.append(EntityFactory.build_entity(enemy_choice))
-
+                
+                # Textos do LEVEL no canto SUPERIOR ESQUERDO
                 generate_text(self.window, 14, f"{self.level_name} - Tempo: {(self.timeout / 1000):.2f}", COLOR_WHITE, (10, 5), "level")
+
+                # Textos do LEVEL no canto INFERIOR ESQUERDO
                 generate_text(self.window, 14, f"FPS: {clock.get_fps():.0f}", COLOR_WHITE, (10, WIN_HEIGHT - 35), "level")
                 generate_text(self.window, 14, f"ENTIDADES: {len(self.entity_list)}", COLOR_WHITE, (10, WIN_HEIGHT - 20), "level")
 
@@ -70,6 +85,10 @@ class Level:
                         return "menu"  # Sai completamente do loop do jogo e volta ao menu
 
                 pygame.display.flip()
+
+                # Tratamento de COLISÕES
+                EntityMediator.verify_collision(self.entity_list)
+                EntityMediator.verify_health(self.entity_list)
 
     def toggle_pause(self):
         """Ativa ou desativa a pausa do jogo"""
