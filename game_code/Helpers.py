@@ -42,7 +42,7 @@ def generate_debug_text(window: pygame.surface.Surface, entity, text: str, text_
 
     window.blit(text_surf, text_rect)
 
-def find_entity(needle: str, haystack: list[Entity]) -> Entity:
+def find_entity(needle: str, haystack: list[Entity]) -> Entity | None:
     """
     Função que busca e retorna uma entidade específicada por nome em uma lista de entidades enviada como parâmetro
     """

@@ -30,11 +30,19 @@ class Game:
 
                 case 'NEW GAME [1P]' | 'NEW GAME [2P] - COOPERATIVE' | 'NEW GAME [2P] - COMPETITIVE':
                     
-                    level = Level(self.window, 'Level 01', menu_response)
-                    level_response = level.run()
+                    # lista de pontuação (posição 01/index 0 - Player1 / posição 02/index 1 - Player2)
+                    player_score = [0, 0]
+
+                    level = Level(self.window, 'Level1', menu_response, player_score)
+                    level_response = level.run(player_score)
 
                     if level_response == "menu":
                         continue  # Volta ao menu
+
+                    elif level_response == "level_complete":
+
+                        level = Level(self.window, 'Level2', menu_response, player_score)
+                        level_response = level.run(player_score)
 
                 case 'SCORE':
                     ...

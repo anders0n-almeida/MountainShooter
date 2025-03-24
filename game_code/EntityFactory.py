@@ -16,9 +16,23 @@ class EntityFactory:
 
             case 'Level1Bg':
                 list_bg = []
+                # 'range(7)' - remete a quantidade de imagens para formar o background1
                 for i in range(0, 7, 1):
 
                     curr_level_name = f"Level1Bg{i}"
+                    # Formando as imagens no começo da tela (position(0, 0))
+                    list_bg.append(Background(curr_level_name, 'backgrounds', position))
+                    # Formando as imagens no fim da tela 
+                    list_bg.append(Background(curr_level_name, 'backgrounds', (WIN_WIDTH, 0)))
+
+                return list_bg
+            
+            case 'Level2Bg':
+                list_bg = []
+                # 'range(5)' - remete a quantidade de imagens para formar o background2
+                for i in range(0, 5, 1):
+
+                    curr_level_name = f"Level2Bg{i}"
                     # Formando as imagens no começo da tela (position(0, 0))
                     list_bg.append(Background(curr_level_name, 'backgrounds', position))
                     # Formando as imagens no fim da tela 

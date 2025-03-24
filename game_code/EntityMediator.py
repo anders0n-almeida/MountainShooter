@@ -68,7 +68,7 @@ class EntityMediator:
                         entity.damage_timer = pygame.time.get_ticks()
 
     @staticmethod
-    def __manage_score(player_reference: Player, score_reference: int, action: str = 'give'):
+    def manage_score(player_reference: Player, score_reference: int, action: str = 'give'):
         """Gerenciador de pontuação dos jogadores"""
 
         if (action == 'give'):
@@ -115,7 +115,7 @@ class EntityMediator:
 
                     score_ref = 100 if entity.name == 'Enemy1' else 200
 
-                    EntityMediator.__manage_score(player_ref, score_ref)
+                    EntityMediator.manage_score(player_ref, score_ref)
 
                 entity_list.remove(entity)
                 # print(f"Entidade {entity.name} destruída!")

@@ -48,6 +48,11 @@ ENTITY_SPEED = {
     'Level1Bg4': 4,
     'Level1Bg5': 5,
     'Level1Bg6': 6,
+    'Level2Bg0': 0,
+    'Level2Bg1': 1,
+    'Level2Bg2': 2,
+    'Level2Bg3': 3,
+    'Level2Bg4': 4,
     'Player1': 3,
     'Player1Shot': 5,
     'Player2': 3,
@@ -91,6 +96,7 @@ ENTITY_SHOT_DELAY = {
 
 # EVENTOS
 EVENT_ENEMY = pygame.USEREVENT + 1
+EVENT_TIMEOUT = pygame.USEREVENT + 2
 
 # OUTROS
 MENU_OPTIONS = [
@@ -100,3 +106,5 @@ MENU_OPTIONS = [
     'SCORE',
     'EXIT'
 ]
+
+TIMEOUT_STEP = 100 # milisegundos/ms
