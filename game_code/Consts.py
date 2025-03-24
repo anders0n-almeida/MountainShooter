@@ -8,8 +8,10 @@ WIN_HEIGHT = 324
 
 # CORES
 COLOR_WHITE = (255, 255, 255)
+COLOR_YELLOW = (255, 255, 128)
 COLOR_ORANGE = (255, 128, 0)
-COLOR_GREEN = (61, 238, 33)
+COLOR_GREEN = (0, 128, 0)
+COLOR_CYAN = (0, 128, 128)
 
 # TECLAS
 PLAYER_KEY_UP = {
@@ -65,6 +67,19 @@ ENTITY_HEALTH = {
     'Enemy1Shot': 1,
     'Enemy2': 60,
     'Enemy2Shot': 1
+}
+
+# Porque 'Player1' e 'Player2' (naves) tem dano setado em 1 e não em zero?
+# Isso garante que os tiros dos inimigos (que tem vida 1) sejam "destruídos"/desapareçam da tela após atingir um jogador
+ENTITY_DAMAGE = {
+    'Player1': 1,
+    'Player1Shot': 20,
+    'Player2': 1,
+    'Player2Shot': 20,
+    'Enemy1': 1,
+    'Enemy1Shot': 50,
+    'Enemy2': 1,
+    'Enemy2Shot': 100
 }
 
 ENTITY_SHOT_DELAY = {

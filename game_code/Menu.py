@@ -44,7 +44,7 @@ class Menu:
             # MENU
             for i in range(0, len(MENU_OPTIONS), 1):
                 if i == curr_menu_option:
-                    generate_text(self.window, 15, MENU_OPTIONS[i], COLOR_GREEN, ((WIN_WIDTH / 2), 180 + (30) * i), "menu")
+                    generate_text(self.window, 15, MENU_OPTIONS[i], COLOR_YELLOW, ((WIN_WIDTH / 2), 180 + (30) * i), "menu")
                 else:
                     generate_text(self.window, 15, MENU_OPTIONS[i], COLOR_WHITE, ((WIN_WIDTH / 2), 180 + (30) * i), "menu")
 

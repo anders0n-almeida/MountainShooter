@@ -10,6 +10,12 @@ class Player(Entity):
 
         super().__init__(name, entity_type, position)
         self.shot_delay = ENTITY_SHOT_DELAY[self.name]
+        self.score = 0
+
+        # Atributos específicos do Player, necessários para o efeito de "piscar" vermelho ao receber dano
+        self.original_image = self.surf.copy()  # Armazena a imagem original
+        self.is_damaged = False
+        self.damage_timer = 0
 
     def move(self):
         

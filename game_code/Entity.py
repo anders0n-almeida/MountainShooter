@@ -14,6 +14,10 @@ class Entity(ABC):
         self.rect = self.surf.get_rect(left = position[0], top = position[1])
         self.speed = 0
         self.health = ENTITY_HEALTH[self.name] if self.name in ENTITY_HEALTH.keys() else None
+        self.damage = ENTITY_DAMAGE[self.name] if self.name in ENTITY_DAMAGE.keys() else None
+
+        # O atributo 'last_damage' guardará o nome da entidade que causou o último dano. Isso permite acumular o SCORE para o jogador correto e ainda impede pontuar o jogador por um inimigo ter sido destruído por chegar ao fim do cenário
+        self.last_damage = None
 
         @abstractmethod
         def move(self):

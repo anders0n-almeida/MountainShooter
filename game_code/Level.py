@@ -46,6 +46,8 @@ class Level:
 
                 # Atualização das entidades caso o jogo NÃO ESTEJA PAUSADO
                 if not self.paused:
+
+                    # Atualizações constantes baseadas em ENTIDADES
                     for entity in self.entity_list:
                         self.window.blit(source=entity.surf, dest=entity.rect)
                         entity.move()
@@ -55,9 +57,22 @@ class Level:
                             if ent_shot is not None:
                                 self.entity_list.append(ent_shot)
 
+                        # Caso a entidade pertinente receba dano, gerar o efeito de "piscar vermelho"
+                        if isinstance(entity, (Player, Enemy)) and entity.is_damaged:
+                            if pygame.time.get_ticks() - entity.damage_timer > 200:  # 200ms de piscar
+                                entity.surf = entity.original_image  # Restaura a imagem original
+                                entity.is_damaged = False
+
+                        # Exibindo textos de vida e score dos jogadores
+                        if entity.name == 'Player1':
+                            generate_text(self.window, 14, f"Player 01 - Health: {entity.health} | Score {entity.score}", COLOR_GREEN, (10, 25), "level")
+                        
+                        if entity.name == 'Player2':
+                            generate_text(self.window, 14, f"Player 02 - Health: {entity.health} | Score {entity.score}", COLOR_CYAN, (10, 45), "level")
+
                         # # Gerando um texto abaixo do inimigo
-                        # if isinstance(entity, Enemy):
-                        #     generate_debug_text(self.window, entity, f"{entity.rect.right}", position="below")
+                        # if isinstance(entity, (Player, Enemy)):x'
+                        #     generate_debug_text(self.window, entity, f"{entity.health}", position="below")
 
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -67,7 +82,8 @@ class Level:
                     if event.type == pygame.KEYDOWN:
                         if event.key == pygame.K_ESCAPE:
                             self.toggle_pause()
-
+                    
+                    # Gerando inimigos aleatoriamente dentro de um tempo específico
                     if (event.type == EVENT_ENEMY) and (not self.paused):
                         enemy_choice = random.choice(('Enemy1', 'Enemy2'))
                         self.entity_list.append(EntityFactory.build_entity(enemy_choice))

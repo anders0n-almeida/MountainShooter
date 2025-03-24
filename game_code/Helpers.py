@@ -1,5 +1,7 @@
 import pygame
 
+from game_code.Entity import Entity
+
 # MÉTODO PARA APRESENTAÇÃO DE TEXTOS (os textos são tratados como IMAGEM)
 def generate_text(window: pygame.surface.Surface, text_size: int, text: str, text_color: tuple, text_pos: tuple, target: str):
 
@@ -39,3 +41,20 @@ def generate_debug_text(window: pygame.surface.Surface, entity, text: str, text_
         text_rect.bottom = entity.rect.top - 5
 
     window.blit(text_surf, text_rect)
+
+def find_entity(needle: str, haystack: list[Entity]) -> Entity:
+    """
+    Função que busca e retorna uma entidade específicada por nome em uma lista de entidades enviada como parâmetro
+    """
+    
+    found_entity = None
+
+    for entity in haystack:
+
+        if entity.name == needle:
+            found_entity = entity
+
+        # else
+        continue
+
+    return found_entity
