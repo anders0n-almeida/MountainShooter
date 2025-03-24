@@ -29,6 +29,7 @@ class Menu:
         
         # Tocando a música carregada indefinidamente (argumento -1)
         pygame.mixer_music.play(-1)
+        pygame.mixer_music.set_volume(0.05)
 
         while True:
             

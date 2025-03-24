@@ -35,7 +35,7 @@ class Level:
 
             pygame.mixer_music.load(f"assets/sounds/soundtrack/{self.level_name}.mp3")
             pygame.mixer_music.play(-1)
-            pygame.mixer_music.set_volume(0.15)
+            pygame.mixer_music.set_volume(0.05)
 
             clock = pygame.time.Clock()
 
