@@ -1,10 +1,13 @@
+# Importações gerais
+import pygame
+
 # Importações do Python Package 'game_code'
 from game_code.Consts import WIN_WIDTH, WIN_HEIGHT 
 from game_code.Menu import Menu
 from game_code.Level import Level
+from game_code.Score import Score
 
-# Importações gerais
-import pygame
+
 
 class Game:
 
@@ -20,8 +23,10 @@ class Game:
 
         while True:
 
-            # Chamando a tela de MENU
+            # Chamando a tela de MENU e instanciando a tela de SCORE
             menu = Menu(self.window)
+            score = Score(self.window)
+
             # A variável 'menu_response' recebe o retorno do menu (opção escolhida)
             menu_response = menu.run()
 
@@ -44,8 +49,17 @@ class Game:
                         level = Level(self.window, 'Level2', menu_response, player_score)
                         level_response = level.run(player_score)
 
+                        if level_response == "level_complete":
+
+                            # devo passar como parâmetro a resposta do menu/opção do menu selecionada para saber se trata-se de um jogo de 1 ou 2 jogadores
+                            score.save(menu_response, player_score)
+
                 case 'SCORE':
-                    ...
+
+                    score_response = score.show()
+
+                    if score_response == "menu":
+                        continue  # Volta ao menu
 
                 case 'EXIT':
                     pygame.quit()

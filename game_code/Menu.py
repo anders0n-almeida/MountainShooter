@@ -27,9 +27,9 @@ class Menu:
         # Carregar a música para o menu
         pygame.mixer_music.load('./assets/sounds/soundtrack/Menu.mp3')
         
-        # Tocando a música carregada indefinidamente (argumento -1)
+        # Tocando a música carregada indefinidamente (argumento -1) e ajustando o volume
         pygame.mixer_music.play(-1)
-        pygame.mixer_music.set_volume(0.05)
+        pygame.mixer_music.set_volume(0.25)
 
         while True:
             

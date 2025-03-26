@@ -1,14 +1,16 @@
+from datetime import datetime
 import pygame
 
 from game_code.Entity import Entity
 
-# MÉTODO PARA APRESENTAÇÃO DE TEXTOS (os textos são tratados como IMAGEM)
+
 def generate_text(window: pygame.surface.Surface, text_size: int, text: str, text_color: tuple, text_pos: tuple, target: str):
+    """Método para apresentação de textos na tela (os textos são tratados como IMAGEM/desenhados)"""
 
     text_font: pygame.font.Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
     text_surf: pygame.Surface = text_font.render(text, True, text_color).convert_alpha()
 
-    if (target == "menu" or target == "pause"):
+    if (target == "menu" or target == "pause" or target == "score"):
         text_rect: pygame.Rect = text_surf.get_rect(center=text_pos)
 
     elif (target == "level"):
@@ -58,3 +60,11 @@ def find_entity(needle: str, haystack: list[Entity]) -> Entity | None:
         continue
 
     return found_entity
+
+def get_curr_formatted_date():
+
+    current_datetime = datetime.now()
+    current_time = current_datetime.strftime("%H:%M")
+    current_date = current_datetime.strftime("%d/%m/%Y")
+
+    return f"{current_date} {current_time}"

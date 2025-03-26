@@ -97,6 +97,7 @@ ENTITY_SHOT_DELAY = {
 # EVENTOS
 EVENT_ENEMY = pygame.USEREVENT + 1
 EVENT_TIMEOUT = pygame.USEREVENT + 2
+TIMEOUT_STEP = 100 # milisegundos/ms
 
 # OUTROS
 MENU_OPTIONS = [
@@ -107,4 +108,19 @@ MENU_OPTIONS = [
     'EXIT'
 ]
 
-TIMEOUT_STEP = 100 # milisegundos/ms
+SCORE_POS = {
+    'title': (WIN_WIDTH / 2, 50),
+    'enter_name': (WIN_WIDTH / 2, 80),
+    'label': (WIN_WIDTH / 2, 90),
+    'name': (WIN_WIDTH / 2, 110),
+    0: (WIN_WIDTH / 2, 110),
+    1: (WIN_WIDTH / 2, 130),
+    2: (WIN_WIDTH / 2, 150),
+    3: (WIN_WIDTH / 2, 170),
+    4: (WIN_WIDTH / 2, 190),
+    5: (WIN_WIDTH / 2, 210),
+    6: (WIN_WIDTH / 2, 230),
+    7: (WIN_WIDTH / 2, 250),
+    8: (WIN_WIDTH / 2, 270),
+    9: (WIN_WIDTH / 2, 290),
+}
